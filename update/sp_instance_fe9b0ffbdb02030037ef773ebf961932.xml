@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">3a0acbbbdb02030037ef773ebf96191c</sp_column>
+        <sp_widget display_value="am_checkout_widget">676b8bfbdb02030037ef773ebf96192f</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-02 18:46:12</sys_created_on>
+        <sys_id>fe9b0ffbdb02030037ef773ebf961932</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Asset Management" source="x_81950_am">eb32c377db02030037ef773ebf9619c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Asset Management">eb32c377db02030037ef773ebf9619c4</sys_scope>
+        <sys_update_name>sp_instance_fe9b0ffbdb02030037ef773ebf961932</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-02 18:46:12</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=fe9b0ffbdb02030037ef773ebf961932"/>
+</record_update>
