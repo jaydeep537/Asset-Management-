@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <client_script><![CDATA[function ($scope, spUtil, cabrillo, $timeout) {
+  $scope.got = false;
+  $scope.need = false;
+
+  $scope.$on("need_barcode", function() {
+    $scope.need = true;
+  });
+
+  $scope.$on('scan_barcode', function(evt) {
+    $timeout(function() {
+      angular.element('#scan_barcode').trigger('click');
+    }, 100);
+  });
+
+  $scope.getBarcode = function() {
+    cabrillo.camera.getBarcode().then(function(value) {
+      cabrillo.log('Received barcode value: ' + value);
+      $scope.data.barcode = value;
+      $scope.got = true;
+      $scope.need = false;
+      spUtil.update($scope);
+    }, function(err) {
+      $scope.data.barcode = "IT1011717";
+      spUtil.update($scope);
+      $scope.got = true;
+      $scope.need = false;
+    });
+  }
+}]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>.glyphicon-modal-window{cursor:pointer;}</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -17,27 +45,75 @@
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	// populate the 'data' variable
+var gr = $sp.getRecord();
+if (gr == null)
+	return;
+
+data.table = gr.getTableName();
+data.sys_id = gr.getUniqueValue();
+
+if (input && input.barcode && gr.comments.canWrite()) {
+  gr.comments = "scanned: " + input.barcode;
+  gr.update();
+}
+	
+})();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-11-02 18:45:26</sys_created_on>
         <sys_id>676b8bfbdb02030037ef773ebf96192f</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>56</sys_mod_count>
         <sys_name>am_checkout_widget</sys_name>
         <sys_package display_value="Asset Management" source="x_81950_am">eb32c377db02030037ef773ebf9619c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Asset Management">eb32c377db02030037ef773ebf9619c4</sys_scope>
         <sys_update_name>sp_widget_676b8bfbdb02030037ef773ebf96192f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-11-09 18:49:58</sys_updated_on>
-        <template><![CDATA[<div class="panel panel-default">
+        <sys_updated_on>2017-11-13 19:32:45</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Panel title</h3>
+    <h3 class="panel-title">Checkout <a ng-click="getBarcode()" class="pull-right glyphicon glyphicon-modal-window"></a></h3>
   </div>
   <div class="panel-body">
-    Panel content body
+    <div class="row">
+      <form>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+        <div class="col-lg-6 form-group">
+          <label for="assetTag">Asset Tag</label>
+          <div class="input-group">
+            <input id="assetTag" type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <label for="state">State</label>
+          <select class="form-control" id="state">
+            <option>Select</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <label for="substate">Sub State</label>
+          <select class="form-control" id="substate">
+            <option>Select</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+      </form>
+    </div>
   </div>
-</div>]]></template>
+</div>
+]]></template>
     </sp_widget>
 </record_update>
