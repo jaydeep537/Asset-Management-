@@ -7,15 +7,42 @@
 	c.data.assetList = [];
 	c.selectedState = "";
 	c.findAsset = function(){
-		//spUtil.addInfoMessage("Hi!");  
-		console.log("inside find asset",c.data.assetId);
-		c.data.action = "findAsset";
-		c.server.update().then(function(response){
+		if(c.checkDuplicateAsset(c.data.assetId))
+			{
+			console.log("inside find asset",c.data.assetId);
+			c.data.action = "findAsset";
+			c.server.update().then(function(response){
 			c.data.action = "";
 			//console.log("Response",response);
 			console.log("data.assetList", c.data.assetList);
-		})
-	}
+				})
+			} 
+	};
+	c.checkDuplicateAsset = function(assetId){
+		var duplicateAsset = false ;
+			if(c.data.assetList && c.data.assetList.length>0){
+				c.data.assetList.forEach(function(value,index){
+						if(assetId==value.assetTag){
+								duplicateAsset = true;
+								spUtil.addErrorMessage('Asset already added.')
+								return false;
+						}
+				})
+				if(!duplicateAsset)
+					{
+							return true;
+					}
+			}
+		else
+			{
+				return true ; 
+			}
+			
+	};
+	c.removeAsset = function(index){
+		console.log("Index",index)
+		c.data.assetList.splice(index,1);
+	};
 	c.getStateList = function() {
 		c.data.stateList = [];
 		c.data.action = "getAssetList";
@@ -88,11 +115,29 @@ $scope.$on("field.change", function(evt, parms) {
   background: #E5E5E5;
   padding: 0px 20px;
   margin-bottom: 10px;
+  position:relative;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px #888888;
+}
+.error-color{
+	color:red;
 }
 .panel-primary &gt; .panel-heading{
 		color: #fff;
     background-color: #337ab7;
     border-color: #337ab7;
+}
+.btn-circle {    
+  	width: 25px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    height: 25px;
+    padding: 3px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -111,8 +156,7 @@ $scope.$on("field.change", function(evt, parms) {
 	//gs.addInfoMessage("Server Script Loaded")
 	if(!input)
 		return;
-
-	data.assetList = [];
+	
 	if(input){
 		if(input.action=="findAsset"){
 			data.assetList = input.assetList;
@@ -184,21 +228,21 @@ $scope.$on("field.change", function(evt, parms) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-11-02 18:45:26</sys_created_on>
         <sys_id>676b8bfbdb02030037ef773ebf96192f</sys_id>
-        <sys_mod_count>272</sys_mod_count>
+        <sys_mod_count>319</sys_mod_count>
         <sys_name>am_checkout_widget</sys_name>
         <sys_package display_value="Asset Management" source="x_81950_am">eb32c377db02030037ef773ebf9619c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Asset Management">eb32c377db02030037ef773ebf9619c4</sys_scope>
         <sys_update_name>sp_widget_676b8bfbdb02030037ef773ebf96192f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-11-15 19:40:06</sys_updated_on>
+        <sys_updated_on>2017-11-21 19:14:16</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Checkout <a ng-click="getBarcode()" class="pull-right glyphicon glyphicon-modal-window"></a></h3>
   </div>
   <div class="panel-body">
     <div class="row">
-      <form>
+      <form name="assetForm" novalidate>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <label for="assetTag">${Name}</label>
           <sn-record-picker field="location" table="'sys_user'" display-field="'name'" value-field="'sys_id'" search-fields="'name'" page-size="100" ></sn-record-picker>
@@ -206,11 +250,12 @@ $scope.$on("field.change", function(evt, parms) {
         <div class="col-lg-6 form-group">
           <label for="assetTag">${Asset Tag}</label>
           <div class="input-group">
-            <input ng-model="c.data.assetId"id="assetTag" type="text" class="form-control" placeholder="Search for...">
+            <input ng-model="c.data.assetId" name="assetTag" id="assetTag" type="text" class="form-control" placeholder="Search Asset" required>
             <span class="input-group-btn">
-              <button ng-click="c.findAsset()" class="btn btn-secondary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+              <button ng-disabled="assetForm.assetTag.$invalid" ng-click="c.findAsset()" class="btn btn-secondary" type="button"><span class="glyphicon glyphicon-search"></span></button>
             </span>
           </div>
+          <span ng-show="assetForm.assetTag.$invalid" class="error-color">${Please Enter Asset ID}</span>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <label for="state">${State}</label>
@@ -238,6 +283,8 @@ $scope.$on("field.change", function(evt, parms) {
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12 assetListCard" ng-repeat="list in c.data.assetList">
+        <button type="button" ng-click="c.removeAsset($index)" class="btn btn-default btn-circle"><i class="fa fa-times"></i>
+       </button>
       	<h3>{{list.assetName}}</h3>
         <p>
           {{list.assetTag}}
