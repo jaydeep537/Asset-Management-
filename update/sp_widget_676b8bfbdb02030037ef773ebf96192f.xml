@@ -119,6 +119,12 @@ $scope.$on("field.change", function(evt, parms) {
   border: 1px solid #ccc;
   box-shadow: 2px 2px 5px #888888;
 }
+.panel-heading{
+	position: relative;
+}
+.panel-title .btn-circle{
+	top:7px;
+}
 .error-color{
 	color:red;
 }
@@ -228,17 +234,17 @@ $scope.$on("field.change", function(evt, parms) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-11-02 18:45:26</sys_created_on>
         <sys_id>676b8bfbdb02030037ef773ebf96192f</sys_id>
-        <sys_mod_count>319</sys_mod_count>
+        <sys_mod_count>323</sys_mod_count>
         <sys_name>am_checkout_widget</sys_name>
         <sys_package display_value="Asset Management" source="x_81950_am">eb32c377db02030037ef773ebf9619c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Asset Management">eb32c377db02030037ef773ebf9619c4</sys_scope>
         <sys_update_name>sp_widget_676b8bfbdb02030037ef773ebf96192f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-11-21 19:14:16</sys_updated_on>
+        <sys_updated_on>2017-11-21 19:37:14</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Checkout <a ng-click="getBarcode()" class="pull-right glyphicon glyphicon-modal-window"></a></h3>
+    <h3 class="panel-title">Checkout <button type="button" ng-click="getBarcode()" class="btn btn-default btn-circle pull-right"><i class="glyphicon glyphicon-search"></i></h3>
   </div>
   <div class="panel-body">
     <div class="row">
