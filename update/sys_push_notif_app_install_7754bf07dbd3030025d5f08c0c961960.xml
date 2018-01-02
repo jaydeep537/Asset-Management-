@@ -2,22 +2,22 @@
 <record_update table="sys_push_notif_app_install">
     <sys_push_notif_app_install action="INSERT_OR_UPDATE">
         <active>true</active>
-        <last_registered_on>2017-11-21 16:22:48</last_registered_on>
+        <last_registered_on>2018-01-01 17:07:21</last_registered_on>
         <sys_class_name>sys_push_notif_app_install</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2017-11-21 16:22:48</sys_created_on>
-        <sys_id>17f0a482db22030037ef773ebf9619e5</sys_id>
+        <sys_created_on>2018-01-01 17:07:21</sys_created_on>
+        <sys_id>7754bf07dbd3030025d5f08c0c961960</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>fsBOuyw36uI:APA91bG47wemkBnAr_h7a4YJHbNwBqCz4oIkWS9_i6siu5rgltYdOmReNyXzIs2rCUiBKDsIxZ1KIkvycq-EKGGNAt4TWb85jwXoIEzRvAbue-fAo2in_PTGUJrGQ4U-hX86zHbmvWPx</sys_name>
+        <sys_name>foR1kHhnNZ0:APA91bFlfc8HQsIu6eroqMyxkLAwUwoIXYhD75WX51k1iyVdJFvnVY-wh_UQL0BeszJ4ozs_VUPGBiSEnGCWf8wlJEoxgYyfPa-SuQAdCt7RQUcnc77OVwGowfoV_kojjEducrHm36D-</sys_name>
         <sys_package display_value="Asset Management" source="x_81950_am">eb32c377db02030037ef773ebf9619c4</sys_package>
         <sys_policy/>
         <sys_push_application_id display_value="ServiceNow Mobile Application">ab704041ff1102009738ffffffffff33</sys_push_application_id>
         <sys_push_platform_id display_value="Google">53e75f30ff0002009738ffffffffff12</sys_push_platform_id>
         <sys_scope display_value="Asset Management">eb32c377db02030037ef773ebf9619c4</sys_scope>
-        <sys_update_name>sys_push_notif_app_install_17f0a482db22030037ef773ebf9619e5</sys_update_name>
+        <sys_update_name>sys_push_notif_app_install_7754bf07dbd3030025d5f08c0c961960</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-11-21 16:22:48</sys_updated_on>
+        <sys_updated_on>2018-01-01 17:07:21</sys_updated_on>
         <sys_user_id display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</sys_user_id>
-        <token>fsBOuyw36uI:APA91bG47wemkBnAr_h7a4YJHbNwBqCz4oIkWS9_i6siu5rgltYdOmReNyXzIs2rCUiBKDsIxZ1KIkvycq-EKGGNAt4TWb85jwXoIEzRvAbue-fAo2in_PTGUJrGQ4U-hX86zHbmvWPx</token>
+        <token>foR1kHhnNZ0:APA91bFlfc8HQsIu6eroqMyxkLAwUwoIXYhD75WX51k1iyVdJFvnVY-wh_UQL0BeszJ4ozs_VUPGBiSEnGCWf8wlJEoxgYyfPa-SuQAdCt7RQUcnc77OVwGowfoV_kojjEducrHm36D-</token>
     </sys_push_notif_app_install>
 </record_update>
