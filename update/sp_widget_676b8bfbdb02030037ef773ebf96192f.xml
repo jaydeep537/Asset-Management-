@@ -150,7 +150,7 @@ $scope.$on("field.change", function(evt, parms) {
         <docs/>
         <field_list/>
         <has_preview>false</has_preview>
-        <id>am_checkout_widget</id>
+        <id>am-checkout-widget</id>
         <internal>false</internal>
         <link/>
         <name>am_checkout_widget</name>
@@ -161,7 +161,7 @@ $scope.$on("field.change", function(evt, parms) {
 	//gs.addInfoMessage("Server Script Loaded")
 	if(!input)
 		return;
-	
+	data.noSubStateFound = true;
 	if(input){
 		if(input.action=="findAsset"){
 			data.assetList = input.assetList;
@@ -197,12 +197,14 @@ $scope.$on("field.change", function(evt, parms) {
 			}
 		}
 		if(input.action=="getsubState"){
+			data.noSubStateFound = true; 
 			data.subStateList = input.subStateList;
 			data.selectedState = input.selectedState;
 			var grSubState = new GlideRecord('sys_choice');
 			grSubState.addEncodedQuery('dependent_value='+ parseInt(data.selectedState));
 			grSubState.query();
 			while(grSubState.next()){
+			  data.noSubStateFound = false;
 				var subStateDetails = {};
 				subStateDetails.name = grSubState.getDisplayValue('label');
 				subStateDetails.value = grSubState.getDisplayValue('Value');																						
@@ -233,14 +235,14 @@ $scope.$on("field.change", function(evt, parms) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-11-02 18:45:26</sys_created_on>
         <sys_id>676b8bfbdb02030037ef773ebf96192f</sys_id>
-        <sys_mod_count>334</sys_mod_count>
+        <sys_mod_count>353</sys_mod_count>
         <sys_name>am_checkout_widget</sys_name>
         <sys_package display_value="Asset Management" source="x_81950_am">eb32c377db02030037ef773ebf9619c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Asset Management">eb32c377db02030037ef773ebf9619c4</sys_scope>
         <sys_update_name>sp_widget_676b8bfbdb02030037ef773ebf96192f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-02 18:48:59</sys_updated_on>
+        <sys_updated_on>2018-01-04 18:22:13</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Checkout<i class="fa fa-barcode pull-right" ng-click="getBarcode()" aria-hidden="true"></i></h3>
@@ -248,9 +250,9 @@ $scope.$on("field.change", function(evt, parms) {
   <div class="panel-body">
     <div class="row">
       <form name="assetForm" novalidate>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-6">
           <label for="assetTag">${Name}</label>
-          <sn-record-picker field="location" table="'sys_user'" display-field="'name'" value-field="'sys_id'" search-fields="'name'" page-size="100" ></sn-record-picker>
+          <sn-record-picker field="name" table="'sys_user'" display-field="'name'" value-field="'sys_id'" search-fields="'name'" page-size="20" ></sn-record-picker>
         </div>
         <div class="col-lg-6 form-group">
           <label for="assetTag">${Asset Tag}</label>
@@ -260,7 +262,7 @@ $scope.$on("field.change", function(evt, parms) {
               <button ng-disabled="assetForm.assetTag.$invalid" ng-click="c.findAsset()" class="btn btn-secondary" type="button"><span class="glyphicon glyphicon-search"></span></button>
             </span>
           </div>
-          <span ng-show="assetForm.assetTag.$invalid" class="error-color">${Please Enter Asset ID}</span>
+          <!--<span ng-show="assetForm.assetTag.$invalid" class="error-color">${Please Enter Asset ID}</span>-->
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <label for="state">${State}</label>
@@ -271,7 +273,7 @@ $scope.$on("field.change", function(evt, parms) {
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <label for="substate">${Sub State}</label>
-          <select class="form-control" id="substate">
+          <select ng-disabled="c.data.noSubStateFound" class="form-control" id="substate">
             <option value="">Select</option>
             <option ng-repeat="subState in c.data.subStateList" value="{{subState.value}}">{{subState.name}}</option>
           </select>
