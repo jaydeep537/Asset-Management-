@@ -7,7 +7,7 @@
         <licensable>true</licensable>
         <license_model>none</license_model>
         <logo/>
-        <menu display_value="Asset Management">fb32c7b7db02030037ef773ebf961944</menu>
+        <menu/>
         <name>Asset Management</name>
         <private>false</private>
         <restrict_table_access>false</restrict_table_access>
